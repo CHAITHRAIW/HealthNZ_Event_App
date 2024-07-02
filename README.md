@@ -37,10 +37,10 @@ The page will reload if you make edits.\
     node index.js
     ```
 ### Step 4. Start the Docker containers
-```bash
-  cd backend
-  node index.js
- ```
+
+   ```bash
+   docker-compose up -d
+   ```
  The  init.sql file inside init-db directory has information of iitial SQL script.
 
 ### Accessing pgAdmin
