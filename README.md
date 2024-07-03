@@ -2,108 +2,47 @@
 
 This is a simple React application with a header and a Create Event page.
 
-## Available Scripts
+# React Event App with PostgreSQL, pgAdmin, and Solace Integration
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-# React Event App with PostgreSQL and pgAdmin
-
-This project sets up a React Event app with a PostgreSQL database and pgAdmin using Docker. It also includes a Node.js backend server to fetch data from the PostgreSQL database and serve it to the React frontend.
-
-## Folder Structure
-
-event-app/
-|-- backend/
-| |-- index.js
-|-- docker-compose.yml
-|-- init-db/
-| |-- init.sql
-|-- public/
-|-- src/
-| |-- components/
-| | |-- Common/
-| | | |-- Header.js
-| | | |-- Header.css
-| | |-- Event/
-| | | |-- CreateEvent.js
-| | | |-- CreateEvent.css
-| | |-- Home.js
-| |-- App.css
-| |-- App.js
-| |-- index.css
-| |-- index.js
-|-- README.md
-|-- package.json
-|-- .env
-
+This project sets up a React Event app with a PostgreSQL database, pgAdmin using Docker, and integrates with the Solace broker project.
 
 ## Setup Instructions
 
 ### Step 1: Docker Setup
 
 1. Ensure Docker is installed on your machine.
-2. Create a `docker-compose.yml` file in the root directory (`event-app/`).
-3. Create an `init-db` directory and an `init.sql` file in the `event-app` directory (`event-app/init-db/init.sql`).
-4. Start the Docker containers:
 
-    ```bash
-    docker-compose up -d
-    ```
+### Step 2: Start the React Application
 
-### Step 2: Set Up Backend Server
+In the project directory, run:
 
-1. Navigate to the `event-app` directory and create a `backend` directory.
-2. Initialize a new Node.js project in the `backend` directory inside `event-app`:
+```bash
+cd event-app
+npm install
+npm start
+   ```
 
-    ```bash
-    mkdir backend
-    cd backend
-    npm init -y
-    npm install express pg cors
-    ```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-3. Create an `index.js` file in the `backend` directory.
+The page will reload if you make edits.\
 
-4. Start the backend server:
+### Step 3: Set Up Backend Server
 
-    ```bash
-    cd backend
-    node index.js
-    ```
+1. Open another terminal.
+2. Start the backend server:
 
-### Step 3: Update React Application
+```bash
+cd backend
+npm install
+node index.js
+```
+### Step 4. Start the Docker containers
 
-1. Ensure your React component for creating events is set up correctly. Update `CreateEvent.js` in `src/components/Event/`.
-
-### Running the Application
-
-1. **Start the Docker containers**:
-
-    ```bash
-    docker-compose up -d
-    ```
-
-2. **Start the backend server**:
-
-    ```bash
-    cd backend
-    node index.js
-    ```
-
-3. **Start the React application**:
-
-    ```bash
-    cd event-app
-    npm start
-    ```
+```bash
+docker-compose up -d
+```
+ The  init.sql file inside init-db directory has information of iitial SQL script.
 
 ### Accessing pgAdmin
 
@@ -120,5 +59,15 @@ event-app/
 
 The `eventsdb` database should already contain an `events` table with one record.
 
-With this setup, your React Event app project will include a PostgreSQL database and pgAdmin, all managed through Docker, and a Node.js backend server to fetch data from the database and serve it to the React frontend. Let me know if you need any further assistance! 🚀
+###  Step 5. Integrate with Solace Broker
+Clone the Solace broker project from the provided GitHub repository:
+```bash
+git clone https://github.com/mpirotaiswilton-IW/NEMS_Test_Harness.git
+```
 
+Follow the setup instructions in the Solace broker project's README to get it up and running.
+
+Ensure the Solace broker is configured to accept messages from your backend server.
+
+
+With this setup, your React Event app project will include a PostgreSQL database, pgAdmin, all managed through Docker, a Node.js backend server to fetch data from the database and serve it to the React frontend, and integration with the Solace broker for message passing.
