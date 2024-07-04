@@ -6,9 +6,9 @@ import './Header.css';
 function Header() {
   return (
     <div className="navbar">
-      <Link to="/" className="active">Event App</Link>
+      <Link to="/" className="active">Health NZ Events App</Link>
       <Link to="/events">Manage Events</Link>
-      <Link to="/create-event">Create Event</Link>
+      <Link to="/create-event">Publish Event</Link>
     </div>
   );
 }
