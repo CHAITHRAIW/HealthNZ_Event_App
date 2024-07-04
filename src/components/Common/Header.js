@@ -7,9 +7,8 @@ function Header() {
   return (
     <div className="navbar">
       <Link to="/" className="active">Event App</Link>
-      <Link to="/events">Events</Link>
+      <Link to="/events">Manage Events</Link>
       <Link to="/create-event">Create Event</Link>
-      <Link to="/show-event">Show Event</Link>
     </div>
   );
 }

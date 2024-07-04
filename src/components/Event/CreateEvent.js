@@ -64,7 +64,7 @@ function CreateEvent() {
 
   return (
     <div className="create-event-container">
-      <h1>Create Event</h1>
+      <h1>Publish Event</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="eventSelect">Select Event</label>
