@@ -15,17 +15,68 @@ const pool = new Pool({
   port: 5432,
 });
 
+// Endpoint to fetch all events
 app.get('/events', async (req, res) => {
   try {
-    const result = await pool.query('SELECT name FROM events');
+    const result = await pool.query('SELECT * FROM events');
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching events:', err.message);
     res.status(500).json({ error: 'Server error' });
   }
 });
+// Endpoint to create a new event
+app.post('/events', async (req, res) => {
+  const { name, description, taxonomy, version } = req.body;
+  try {
+    const result = await pool.query(
+      'INSERT INTO events (name, description, taxonomy, version) VALUES ($1, $2, $3, $4) RETURNING *',
+      [name, description, taxonomy, version]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error creating event:', err.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
-// New route to send messages to the Solace broker
+// Endpoint to fetch a specific event by id
+app.get('/events/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM events WHERE id = $1', [id]);
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]);
+    } else {
+      res.status(404).send('Event not found');
+    }
+  } catch (err) {
+    console.error('Error fetching event:', err.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Endpoint to update an existing event by id
+app.put('/events/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, description, taxonomy, version } = req.body;
+  try {
+    const result = await pool.query(
+      'UPDATE events SET name = $1, description = $2, taxonomy = $3, version = $4 WHERE id = $5 RETURNING *',
+      [name, description, taxonomy, version, id]
+    );
+    if (result.rows.length > 0) {
+      res.json(result.rows[0]);
+    } else {
+      res.status(404).send('Event not found');
+    }
+  } catch (err) {
+    console.error('Error updating event:', err.message);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Endpoint to send messages to the Solace broker
 app.post('/send-message', async (req, res) => {
   const { topic, payloadStrings, interval } = req.body;
 
